@@ -19,18 +19,21 @@ Contributing
 
     ```ruby
     class Service::ServiceName < Service
-      def receive(payload)
-				case payload[:action]
-				when 'feedback'
-					# do something when feedback is received
-				when 'crash_report'
-					# do something when a unique crash report comes through
-				end
-      end
+
+    	string :api_key, :required => true
+
+    	# Do something when a unique crash report comes through
+    	def receive_crash_report 
+    	end
+
+    	# Do something when feedback is recieved
+    	def recieve_feedback
+    	end
+
     end
     ```
 
-4. Add documentation in /docs
-5. Add any any needed tests in /test
+4. Add any any needed tests in /tests
+5. Add documentation in /docs
 6. Add any dependencies to the Gemfile
 7. Send a pull request to [AppBlade Services](https://github.com/AppBlade/Services)
