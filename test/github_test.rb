@@ -28,7 +28,7 @@ private
 				'api_token'        => 'xxxxxxxxxxxxxx',
 				'username'         => 'jamesdaniels',
 				'project'          => 'AppBlade/Services',
-				'tag'              => 'Crash',
+				'tag_for_crash'    => 'Crash',
 				'tag_with_version' => true
 			},
 			'simple' => {

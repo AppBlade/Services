@@ -1,7 +1,7 @@
 class Service::Github < Service
 
   string :username, :api_token, :project, :required => true
-	string :tag, :default => 'Crash'
+	string :tag_for_crash, :default => 'Crash'
 	boolean :tag_with_version
 
 	def settings_correct?
@@ -14,7 +14,7 @@ class Service::Github < Service
 			:body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})"
 		}).body)['issue']['number']
 		connection.post "/api/v2/json/issues/label/add/#{settings :project}/#{simple :version}/#{number}" if settings :tag_with_version
-		connection.post "/api/v2/json/issues/label/add/#{settings :project}/#{settings :tag}/#{number}" unless settings(:tag).blank?
+		connection.post "/api/v2/json/issues/label/add/#{settings :project}/#{settings :tag_for_crash}/#{number}" unless settings(:tag_for_crash).blank?
   end
 
 private
