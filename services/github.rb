@@ -5,7 +5,7 @@ class Service::Github < Service
 	boolean :tag_with_version
 
 	def settings_correct?
-		issues.status == 200
+		connection.get("/api/v2/json/repos/show/#{settings :project}").status == 200
 	end
 
   def receive_crash_report
@@ -25,9 +25,4 @@ private
 		end
 	end
 
-	def issues
-		connection.get "/api/v2/json/issues/list/#{settings :project}/open"
-	end
-
 end
-
