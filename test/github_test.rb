@@ -1,9 +1,9 @@
 require File.expand_path('../helper', __FILE__)
 
-class CampfireTest < Service::TestCase
+class GithubTest < Service::TestCase
 
 	def setup
-		@service ||= Service::Campfire.new
+		@service ||= Service::Github.new
 	end
 
 	def teardown
@@ -25,10 +25,11 @@ private
 	def crash_report_payload
     {
 			'settings' => {
-				'api_token' => 'aaaaaaaa',
-				'subdomain' => 'appblade',
-				'room_name' => 'AppBlade',
-				'sound' => 'secret'
+				'api_token'        => 'xxxxxxxxxxxxxx',
+				'username'         => 'jamesdaniels',
+				'project'          => 'AppBlade/Services',
+				'tag'              => 'Crash',
+				'tag_with_version' => true
 			},
 			'simple' => {
 				'project' => 'Test app',
@@ -39,5 +40,5 @@ private
 		}
   end
 
-
 end
+
