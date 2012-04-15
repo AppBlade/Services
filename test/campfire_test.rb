@@ -2,6 +2,13 @@ require File.expand_path('../helper', __FILE__)
 
 class CampfireTest < Service::TestCase
 
+	SettingsPayload = {
+		'api_token' => 'aaaaaaaa',
+		'subdomain' => 'appblade',
+		'room_name' => 'AppBlade',
+		'sound'     => 'secret'
+	}
+
 	def setup
 		@service ||= Service::Campfire.new
 	end
@@ -13,7 +20,10 @@ class CampfireTest < Service::TestCase
 
 	def test_crash_reports
 		service.payload = crash_report_payload
-		service.receive_crash_report
+	end
+
+	def test_new_version
+		service.payload = new_version_payload
 	end
 
 private
@@ -21,23 +31,5 @@ private
 	def service
 		@service
 	end
-
-	def crash_report_payload
-    {
-			'settings' => {
-				'api_token' => 'aaaaaaaa',
-				'subdomain' => 'appblade',
-				'room_name' => 'AppBlade',
-				'sound' => 'secret'
-			},
-			'simple' => {
-				'project' => 'Test app',
-				'version' => '1.0.2',
-				'message' => 'test error'
-			},
-			'url' => 'http://www.google.com'
-		}
-  end
-
 
 end

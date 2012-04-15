@@ -14,14 +14,22 @@ class Service::Campfire < Service
 	end
 
   def receive_crash_report
-		room.speak "[#{simple(:project)}/#{simple(:version)}] #{simple(:message)}: #{url}"
+		room.speak "#{subject} #{simple :message}: #{url}"
 		room.play settings(:sound) unless settings(:sound).blank?
   end
+
+	def recieve_new_version
+		room.speak "#{subject} was just uploaded to AppBlade by #{simple :user}: #{url}"
+	end
 
 private
 
 	def connection
 		@connection ||= Tinder::Campfire.new settings(:subdomain), :token => settings(:api_token)
+	end
+
+	def subject
+		"[#{simple :project}/#{simple :platform}/#{simple :version}]"
 	end
 
 	def room
