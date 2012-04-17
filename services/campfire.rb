@@ -2,7 +2,7 @@ require 'tinder'
 
 class Service::Campfire < Service
 
-  string :subdomain, :room_name, :api_token, :required => true
+	string :subdomain, :room_name, :api_token, :required => true
 	string :sound, :default => 'rimshot', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
 
 	def settings_correct?
@@ -13,10 +13,10 @@ class Service::Campfire < Service
 		end
 	end
 
-  def receive_crash_report
+	def receive_crash_report
 		room.speak "#{subject} #{simple :message}: #{url}"
 		room.play settings(:sound) unless settings(:sound).blank?
-  end
+	end
 
 	def recieve_new_version
 		room.speak "#{subject} was just uploaded to AppBlade by #{simple :user}: #{url}"

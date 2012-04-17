@@ -1,8 +1,8 @@
 class Service
 
 	def self.string(*attrs)
-    add_to_schema :string, attrs
-  end
+		add_to_schema :string, attrs
+	end
 
 	def self.boolean(*attrs)
 		add_to_schema :boolean, attrs
