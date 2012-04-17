@@ -18,6 +18,11 @@ class CampfireTest < Service::TestCase
 
 # Setup complete, start testing
 
+	def test_listener_registration
+		assert Service.crash_report_listeners.include? Service::Campfire
+		assert Service.new_version_listeners.include? Service::Campfire
+	end
+
 	def test_crash_reports
 		service.payload = crash_report_payload
 	end

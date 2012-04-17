@@ -18,7 +18,7 @@ class Service::Campfire < Service
 		room.play settings(:sound) unless settings(:sound).blank?
 	end
 
-	def recieve_new_version
+	def receive_new_version
 		room.speak "#{subject} was just uploaded to AppBlade by #{simple :user}: #{url}"
 	end
 

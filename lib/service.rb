@@ -12,6 +12,20 @@ class Service
 		@schema ||= {}
 	end
 
+	def self.subclasses
+    ObjectSpace.each_object.map do |klass|
+      klass if Module === klass && self > klass
+    end.compact
+  end
+
+	def self.crash_report_listeners
+    subclasses.select{|k| k.method_defined?(:receive_crash_report) }
+  end
+
+	def self.new_version_listeners
+    subclasses.select{|k| k.method_defined?(:receive_new_version) }
+  end
+
 	attr_accessor :settings, :payload
 
 	def self.add_to_schema(type, *attrs)

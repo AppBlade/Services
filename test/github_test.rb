@@ -19,6 +19,10 @@ class GithubTest < Service::TestCase
 
 # Setup complete, start testing
 
+	def test_listener_registration
+		assert Service.crash_report_listeners.include? Service::Github
+	end
+
 	def test_crash_reports
 		service.payload = crash_report_payload
 	end
