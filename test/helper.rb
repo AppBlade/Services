@@ -1,5 +1,8 @@
+require File.expand_path('../../services', __FILE__)
 require 'test/unit'
-require File.expand_path('../../lib/service', __FILE__)
+require 'rack/test'
+
+ENV['RACK_ENV'] = 'test'
 
 class Service::TestCase < Test::Unit::TestCase
 
@@ -8,7 +11,7 @@ class Service::TestCase < Test::Unit::TestCase
 
 	def crash_report_payload
     {
-			'settings' => self.class::SettingsPayload,
+			'settings' => settings_payload,
 			'simple' => {
 				'project'  => 'Test app',
 				'version'  => '1.0.2',
@@ -21,7 +24,7 @@ class Service::TestCase < Test::Unit::TestCase
 
 	def new_version_payload
 		{
-			'settings' => self.class::SettingsPayload,
+			'settings' => settings_payload,
 			'simple' => {
 				'project' => 'Test app',
 				'version' => '1.0.2',
@@ -32,6 +35,22 @@ class Service::TestCase < Test::Unit::TestCase
 		}
   end
 
-end
+	def settings_payload
+		{
+			'Service::Github' => {
+				'api_token'        => 'xxxxxxxxxxxxxx',
+				'username'         => 'jamesdaniels',
+				'project'          => 'AppBlade/Services',
+				'tag_for_crash'    => 'Crash',
+				'tag_with_version' => true
+			},
+			'Service::Campfire' => {
+				'api_token' => 'aaaaaaaa',
+				'subdomain' => 'appblade',
+				'room_name' => 'AppBlade',
+				'sound'     => 'secret'
+			}
+		}
+	end
 
-Dir["#{File.dirname(__FILE__)}/../services/**/*.rb"].each { |service| load service }
+end

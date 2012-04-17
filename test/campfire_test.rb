@@ -2,13 +2,6 @@ require File.expand_path('../helper', __FILE__)
 
 class CampfireTest < Service::TestCase
 
-	SettingsPayload = {
-		'api_token' => 'aaaaaaaa',
-		'subdomain' => 'appblade',
-		'room_name' => 'AppBlade',
-		'sound'     => 'secret'
-	}
-
 	def setup
 		@service ||= Service::Campfire.new
 	end
@@ -20,7 +13,7 @@ class CampfireTest < Service::TestCase
 
 	def test_listener_registration
 		assert Service.crash_report_listeners.include? Service::Campfire
-		assert Service.new_version_listeners.include? Service::Campfire
+		assert Service.new_version_listeners.include?  Service::Campfire
 	end
 
 	def test_crash_reports

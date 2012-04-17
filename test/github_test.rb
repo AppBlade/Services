@@ -2,14 +2,6 @@ require File.expand_path('../helper', __FILE__)
 
 class GithubTest < Service::TestCase
 
-	SettingsPayload = {
-		'api_token'        => 'xxxxxxxxxxxxxx',
-		'username'         => 'jamesdaniels',
-		'project'          => 'AppBlade/Services',
-		'tag_for_crash'    => 'Crash',
-		'tag_with_version' => true
-	}
-
 	def setup
 		@service ||= Service::Github.new
 	end

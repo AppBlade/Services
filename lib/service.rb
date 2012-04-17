@@ -18,6 +18,18 @@ class Service
     end.compact
   end
 
+	def self.subclass_description
+		self.subclasses.inject({}) do |response, subclass|
+			response[subclass.to_s] = {
+				:title         => subclass::Title,
+				:description   => subclass::Description,
+				:schema        => subclass.schema,
+				:documentation => File.read(File.expand_path("../../docs/#{subclass.name.split('::').last.downcase}.md", __FILE__))
+			}
+			response
+		end
+	end
+
 	def self.crash_report_listeners
     @crash_report_listeners ||= subclasses.select{|k| k.method_defined?(:receive_crash_report) }
   end
@@ -41,7 +53,7 @@ class Service
 	end
 
 	def settings(setting)
-		payload['settings'][setting.to_s]
+		payload['settings'][self.class.name][setting.to_s]
 	end
 
 	def simple(attr)
@@ -53,3 +65,5 @@ class Service
 	end
 
 end
+
+Dir["#{File.dirname(__FILE__)}/../services/**/*.rb"].each { |service| load service }

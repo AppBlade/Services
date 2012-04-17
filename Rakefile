@@ -1,5 +1,7 @@
 require 'rake/testtask'
 
+Bundler.require(:default)
+
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/*_test.rb'
