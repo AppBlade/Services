@@ -21,8 +21,8 @@ class Service
 	def self.subclass_description
 		self.subclasses.inject({}) do |response, subclass|
 			response[subclass.to_s] = {
-				:title         => subclass::Title,
-				:description   => subclass::Description,
+				:name          => subclass::Title,
+				:short         => subclass::Description,
 				:schema        => subclass.schema,
 				:documentation => File.read(File.expand_path("../../docs/#{subclass.name.split('::').last.downcase}.md", __FILE__))
 			}

@@ -26,10 +26,10 @@ class Service::TestCase < Test::Unit::TestCase
 		{
 			'settings' => settings_payload,
 			'simple' => {
-				'project' => 'Test app',
-				'version' => '1.0.2',
-				'message' => 'test error',
-				'user'    => 'James Daniels'
+				'project'  => 'Test app',
+				'version'  => '1.0.2',
+				'platform' => 'Android',
+				'user'     => 'James Daniels'
 			},
 			'url' => 'http://www.google.com'
 		}
