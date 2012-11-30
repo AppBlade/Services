@@ -14,7 +14,7 @@ Contributing
 ------------
 
 1. Fork this project
-2. Start the services project by running <code>bundle exec services.rb</code>
+2. Start the services project by running either <code>bundle exec services.rb</code> or <code>bundle exec ruby services.rb</code>
 3. Create a new ruby file or modify one in /services with the following format:
 
     ```ruby
