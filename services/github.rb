@@ -11,6 +11,14 @@ class Service::Github < Service
 		connection.get("/api/v2/json/repos/show/#{settings :project}").status == 200
 	end
 
+  def settings_test
+    if settings_correct?
+      'Success.'
+    else
+      'Settings are incorrect.'
+    end
+  end
+
 	def receive_crash_report
 		if settings_correct?
 			response = connection.post("/api/v2/json/issues/open/#{settings :project}", {
