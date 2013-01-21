@@ -7,7 +7,11 @@ class Service
 	def self.boolean(*attrs)
 		add_to_schema :boolean, attrs
 	end
-	
+
+  def self.oauth(service)
+    add_to_schema :oauth, [:access_token, {:service => service}]
+  end
+
 	def self.schema
 		@schema ||= {}
 	end
