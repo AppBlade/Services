@@ -1,3 +1,5 @@
+require 'tinder'
+
 class Service::Campfire < Service
 
 	Title = 'Campfire'
@@ -13,6 +15,14 @@ class Service::Campfire < Service
 			false
 		end
 	end
+
+  def settings_test
+    if settings_correct?
+      'Success.'
+    else
+      'Settings are incorrect.'
+    end
+  end
 
 	def receive_crash_report
 		if settings_correct?
