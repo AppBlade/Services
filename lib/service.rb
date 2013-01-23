@@ -1,3 +1,9 @@
+class String
+  def blank?
+    self == nil || self == ""
+  end
+end
+
 class Service
 
 	def self.string(*attrs)

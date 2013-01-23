@@ -8,30 +8,21 @@ class Service::Campfire < Service
 	string :subdomain, :room_name, :api_token, :required => true
 	string :sound, :default => 'rimshot', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
 
-	def settings_correct?
-		begin
-			!!room
-		rescue
-			false
-		end
-	end
-
   def settings_test
-    if settings_correct?
-      'Success.'
-    else
-      'Settings are incorrect.'
-    end
+    return "Sub-domain is required" if settings(:subdomain).blank?
+    return "Room name is required"  if settings(:room_name).blank?
+    return "API Token is required"  if settings(:api_token).blank?
+    !!room && 'Success.' || 'Invalid room name.'
+  rescue OpenSSL::SSL::SSLError => e
+    "SSL Error!"
+  rescue Tinder::AuthenticationFailed => e
+    "Invalid sub-domain or API token."
   end
 
 	def receive_crash_report
-		if settings_correct?
-			room.speak "#{subject} #{simple :message}: #{url}"
-			room.play settings(:sound) unless settings(:sound).blank?
-			"Success."
-		else
-			"Settings are incorrect."
-		end
+		room.speak "#{subject} #{simple :message}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
 	end
 
 	def receive_new_version
