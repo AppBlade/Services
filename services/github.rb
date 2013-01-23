@@ -39,7 +39,14 @@ class Service::Github < Service
 private
 
 	def connection
-		@connection ||= Faraday.new(:url => 'https://api.github.com').tap do |conn|
+		@connection ||= Faraday.new(:url => 'https://api.github.com') do |builder|
+      builder.use     FaradayMiddleware::EncodeJson
+      builder.use     FaradayMiddleware::Mashify
+      builder.use     FaradayMiddleware::ParseJson
+      builder.use     Faraday::Response::RemoveWhitespace
+      builder.use     Faraday::Response::RaiseOnAuthenticationFailure
+      builder.adapter Faraday.default_adapter
+    end.tap do |conn|
       conn.headers = {
         :accept => "application/vnd.github.v3+json\napplication/json",
         :user_agent => 'AppBlade/Services/1.0 (Easy, like your mom)',
