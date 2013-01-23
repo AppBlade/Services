@@ -24,6 +24,10 @@ post '/new_version' do
   process :new_version
 end
 
+post '/feedback' do
+  process :feedback
+end
+
 
 def process(service)
   request.body.rewind

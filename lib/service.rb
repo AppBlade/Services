@@ -48,6 +48,10 @@ class Service
     @new_version_listeners ||= subclasses.select{|k| k.method_defined?(:receive_new_version) }
   end
 
+  def self.feedback_listeners
+    @feedback_listeners ||= subclasses.select{|k| k.method_defined?(:receive_feedback) }
+  end
+
 	attr_accessor :settings, :payload
 
 	def self.add_to_schema(type, *attrs)

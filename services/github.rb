@@ -25,18 +25,29 @@ class Service::Github < Service
   end
 
 	def receive_crash_report
-    labels = []
-    labels << simple(:version) if settings :tag_with_version
-    labels << simple(:platform) if settings :tag_with_platform
-    labels << settings(:tag_for_crash) unless settings(:tag_for_crash).blank?
     connection.post("/repos/#{settings :project}/issues", {
       :title => simple(:message), 
       :body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
-      :labels => labels
-    })
+      :labels => labels + ['Crash report']
+    }).body
 	end
 
+  def receive_feedback
+    connection.post("/repos/#{settings :project}/issues", {
+      :title => "Feedback from #{simple :user}",
+      :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
+      :labels => labels + ['Feedback']
+    }).body
+  end
+
 private
+
+  def labels
+    labels = []
+    labels << simple(:version) if settings :tag_with_version
+    labels << simple(:platform) if settings :tag_with_platform
+    labels
+  end
 
 	def connection
 		@connection ||= Faraday.new(:url => 'https://api.github.com') do |builder|

@@ -28,7 +28,15 @@ class Service::Campfire < Service
 
 	def receive_new_version
 		room.speak "#{subject} was just uploaded to AppBlade by #{simple :user}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
 	end
+
+  def receive_feedback
+    room.speak "#{subject} just had in-app feedback submitted to AppBlade by #{simple :user}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
+  end
 
 private
 
