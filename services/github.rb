@@ -9,32 +9,31 @@ class Service::Github < Service
 
   oauth :github
 
-	def settings_correct?
-		connection.get("/repos/#{settings :project}").status == 200
-	end
-
   def settings_test
-    if settings_correct?
+    case connection && connection.get("/repos/#{settings :project}").status
+    when 200
       'Success.'
+    when 404
+      'Unknown repo.'
+    when 401
+      'Invalid API token.'
     else
-      'Settings are incorrect.'
+      "Settings incorrect."
     end
+  rescue
+    "Settings are incorrect or GitHub is not reachable."
   end
 
 	def receive_crash_report
-		if settings_correct?
-      labels = []
-      labels << simple(:version) if settings :tag_with_version
-      labels << simple(:platform) if settings :tag_with_platform
-      labels << settings(:tag_for_crash) unless settings(:tag_for_crash).blank?
-			connection.post("/repos/#{settings :project}/issues", {
-				:title => simple(:message), 
-				:body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
-        :labels => labels
-			})
-		else
-			"Settings are incorrect."
-		end
+    labels = []
+    labels << simple(:version) if settings :tag_with_version
+    labels << simple(:platform) if settings :tag_with_platform
+    labels << settings(:tag_for_crash) unless settings(:tag_for_crash).blank?
+    connection.post("/repos/#{settings :project}/issues", {
+      :title => simple(:message), 
+      :body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
+      :labels => labels
+    })
 	end
 
 private
@@ -46,7 +45,7 @@ private
         :user_agent => 'AppBlade/Services/1.0 (Easy, like your mom)',
         :authorization => "token #{settings(:access_token)}"
       }
-		end
+    end
 	end
 
 end

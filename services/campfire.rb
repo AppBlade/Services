@@ -13,10 +13,10 @@ class Service::Campfire < Service
     return "Room name is required"  if settings(:room_name).blank?
     return "API Token is required"  if settings(:api_token).blank?
     !!room && 'Success.' || 'Invalid room name.'
-  rescue OpenSSL::SSL::SSLError => e
-    "SSL Error!"
   rescue Tinder::AuthenticationFailed => e
     "Invalid sub-domain or API token."
+  rescue => e
+    'Invalid settings or Campfire is unreachable.'
   end
 
 	def receive_crash_report
