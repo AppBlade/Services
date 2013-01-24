@@ -3,10 +3,10 @@ require 'tinder'
 class Service::Campfire < Service
 
 	Title = 'Campfire'
-	Description = 'Use this service to broadcast updates, crash reports, unprovisioned devices, and feedback to 37Signals Campfire.'
+	Description = 'Use this service to broadcast updates, crash reports, and feedback to 37Signals Campfire.'
 
 	string :subdomain, :room_name, :required => true
-	string :sound, :default => 'rimshot', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
+	string :sound, :default => '', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
 
   oauth :thirty_seven_signals
 

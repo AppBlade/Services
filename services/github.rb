@@ -1,11 +1,10 @@
 class Service::Github < Service
 
 	Title = 'GitHub'
-	Description = 'Use this service to file GitHub Issues for new crash reports, feedback, and unprovisioned devices.'
+	Description = 'Use this service to file GitHub Issues for new crash reports and in-app feedback.'
 
 	string  :project, :required => true
-	string  :tag_for_crash, :default => 'Crash'
-	boolean :tag_with_version, :tag_with_platform
+	boolean :tag_with_version, :tag_with_platform, :default => true
 
   oauth :github
 
