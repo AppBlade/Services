@@ -2,6 +2,8 @@ require 'sinatra'
 require 'multi_json'
 require File.join(File.dirname(__FILE__), 'lib', 'service')
 
+File.open('services.pid', 'w') {|f| f.write Process.pid }
+
 set :port, 9292
 
 get '/' do
