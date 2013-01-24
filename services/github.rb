@@ -34,7 +34,7 @@ class Service::Github < Service
   def receive_feedback
     connection.post("/repos/#{settings :project}/issues", {
       :title => "Feedback from #{simple :user}",
-      :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
+      :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{simple :message}",
       :labels => labels + ['Feedback']
     }).body
   end
