@@ -26,7 +26,7 @@ See examples in the services directory to see how services are setup.
 <tr> <th>string</th>  <td>*fields, options = {}</td> <td>A string data type (max-length 999)</td> </tr>
 <tr> <th>password</th><td>*fields, options = {}</td> <td>A string with a masked input field</td> </tr>
 <tr> <th>boolean</th> <td>*fields, options = {}</td> <td>A string with a value of 1 or 0, true/false, will be presented as a checkbox in AppBlade</td> </tr>
-<tr> <th>oauth</th>   <td>*fields, options = {}</td> <td>An OAuth token for a given service (still working on local development methods, sensitive by default)</td> </tr>
+<tr> <th>oauth</th>   <td>*fields, options = {}</td> <td>An OAuth token for a given service (sensitive by default)</td> </tr>
 </tbody>
 </table>
 
