@@ -40,7 +40,7 @@ See examples in the services directory to see how services are setup.
 <tr> <th>required</th>   <td>Boolean</td>   <td>Fails validation if empty</td> </tr>
 <tr> <th>sensitive</th>  <td>Boolean</td>   <td>Sensitive fields will only show their contents to the user that editted the integration last on AppBlade</td></tr>
 <tr> <th>default</th>    <td>String</td>       <td>AppBlade will show a default value</td> </tr>
-<tr> <th>collection</th> <td>[String, String]</td> <td>AppBlade will show a combination box with the array values passed</td> </tr>
+<tr> <th>collection</th> <td>[Strings]</td> <td>AppBlade will show a combination box with the array values passed</td> </tr>
 </tbody>
 </table>
 
