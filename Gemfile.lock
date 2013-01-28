@@ -36,6 +36,7 @@ GEM
     json (1.7.6)
     mime-types (1.19)
     multi_json (1.5.0)
+    multi_xml (0.5.2)
     multipart-post (1.1.5)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -71,6 +72,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capistrano_colors
+  multi_xml
   rack-test
   rake
   rvm
