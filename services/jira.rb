@@ -63,8 +63,8 @@ private
 
   def labels
     labels = []
-    labels << simple(:version).gsub(' ', '') if settings :tag_with_version
-    labels << simple(:platform) if settings :tag_with_platform
+    labels << simple(:version).gsub(' ', '') if settings(:tag_with_version) == '1'
+    labels << simple(:platform) if settings(:tag_with_platform) == '1'
     labels.reject(&:blank?)
   end
 
