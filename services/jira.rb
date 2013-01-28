@@ -3,9 +3,10 @@ class Service::Jira < Service
 	Title = 'JIRA'
   Description = 'Use this service to file issues for new crash reports and in-app feedback in Atlassian\'s JIRA.'
 
-  string :server_url, :username
+  string :server_url
+  string :username,   :sensitive => true
   
-  password :password
+  password :password, :sensitive => true
   
   string :project_key
 

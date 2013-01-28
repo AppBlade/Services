@@ -3,7 +3,7 @@ class Service::PivotalTracker < Service
 	Title = 'Pivotal Tracker'
   Description = 'Use this service to file issues for new crash reports and in-app feedback in Pivotal Tracker.'
 
-  password :api_token
+  string :api_token, :sensitive => true
   
   string :project_id
 
