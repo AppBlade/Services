@@ -32,7 +32,8 @@ class Service::PivotalTracker < Service
       :story => {
         :story_type  => settings(:crash_report_story_type),
         :name        => simple(:message), 
-        :description => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})"
+        :description => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
+        :labels      => (labels + ['Crash report']).join(',')
       }
     }).body
 	end
@@ -42,7 +43,8 @@ class Service::PivotalTracker < Service
       :story => {
         :story_type  => settings(:feedback_story_type),
         :name        => "Feedback from #{simple :user}",
-        :description => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{simple :message}"
+        :description => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{simple :message}",
+        :labels      => (labels + ['Feedback']).join(',')
       }
     }).body
   end
@@ -53,7 +55,7 @@ private
     labels = []
     labels << simple(:version) if settings :tag_with_version
     labels << simple(:platform) if settings :tag_with_platform
-    labels
+    labels.reject(&:blank?)
   end
 
 	def connection

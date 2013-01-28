@@ -64,7 +64,7 @@ private
     labels = []
     labels << simple(:version).gsub(' ', '') if settings :tag_with_version
     labels << simple(:platform) if settings :tag_with_platform
-    labels
+    labels.reject(&:blank?)
   end
 
 	def connection
