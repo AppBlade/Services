@@ -24,8 +24,9 @@ See examples in the services directory to see how services are setup.
 </thead>
 <tbody>
 <tr> <th>string</th>  <td>*fields, options = {}</td> <td>A string data type (max-length 999)</td> </tr>
-<tr> <th>boolean</th> <td>*fields, options = {}</td> <td>True/false</td> </tr>
-<tr> <th>oauth</th>   <td>*fields, options = {}</td> <td>An OAuth token for a given service (still working on local development methods)</td> </tr>
+<tr> <th>password</th><td>*fields, options = {}</td> <td>A string with a masked input field</td> </tr>
+<tr> <th>boolean</th> <td>*fields, options = {}</td> <td>A string with a value of 1 or 0, true/false, will be presented as a checkbox in AppBlade</td> </tr>
+<tr> <th>oauth</th>   <td>*fields, options = {}</td> <td>An OAuth token for a given service (still working on local development methods, sensitive by default)</td> </tr>
 </tbody>
 </table>
 
@@ -37,6 +38,7 @@ See examples in the services directory to see how services are setup.
 </thead>
 <tbody>
 <tr> <th>required</th>   <td>Boolean</td>   <td>Fails validation if empty</td> </tr>
+<tr> <th>sensitive</th>  <td>Boolean</td>   <td>Sensitive fields will only show their contents to the user that editted the integration last on AppBlade</td></tr>
 <tr> <th>default</th>    <td>String</td>       <td>AppBlade will show a default value</td> </tr>
 <tr> <th>collection</th> <td>[String, String]</td> <td>AppBlade will show a combination box with the array values passed</td> </tr>
 </tbody>
