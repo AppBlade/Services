@@ -23,21 +23,35 @@ class Service::Github < Service
     "Settings are incorrect or GitHub is not reachable."
   end
 
-	def receive_crash_report
+  def receive_crash_report
     connection.post("/repos/#{settings :project}/issues", {
       :title => simple(:message), 
       :body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
       :labels => labels + ['Crash report']
     }).body
-	end
+  end
 
   def receive_feedback
     connection.post("/repos/#{settings :project}/issues", {
-      :title => "Feedback from #{simple :user}",
-      :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{simple :message}",
+      :title => "#{title_format :notes}",
+      :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{body_format :notes} \n\n#{simple :device}\n#{simple :device_id}",
       :labels => labels + ['Feedback']
     }).body
   end
+
+
+def body_format(attr)
+	#TODO: image handling, likely formatted somewhere in notes or settings
+	payload['simple'][attr.to_s]
+end
+
+def title_format(attr)
+	to_ret = payload['simple'][attr.to_s] 
+	#simple cutoff logic and formatting
+	return to_ret[0,77]+'...' unless to_ret.length < 80
+	to_ret 
+end
+
 
 private
 
