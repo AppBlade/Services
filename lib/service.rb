@@ -1,3 +1,9 @@
+class String
+  def blank?
+    self == nil || self == ""
+  end
+end
+
 class Service
 
 	def self.string(*attrs)
@@ -7,12 +13,20 @@ class Service
 	def self.boolean(*attrs)
 		add_to_schema :boolean, attrs
 	end
-	
-	def self.schema
-		@schema ||= {}
-	end
 
-	def self.subclasses
+  def self.password(*attrs)
+    add_to_schema :password, attrs
+  end
+
+  def self.oauth(service)
+    add_to_schema :oauth, [:access_token, {:service => service}]
+  end
+
+  def self.schema
+    @schema ||= {}
+  end
+
+  def self.subclasses
     @subclasses ||= ObjectSpace.each_object.map do |klass|
       klass if Module === klass && self > klass
     end.compact
@@ -30,12 +44,16 @@ class Service
 		end
 	end
 
-	def self.crash_report_listeners
+  def self.crash_report_listeners
     @crash_report_listeners ||= subclasses.select{|k| k.method_defined?(:receive_crash_report) }
   end
 
-	def self.new_version_listeners
+  def self.new_version_listeners
     @new_version_listeners ||= subclasses.select{|k| k.method_defined?(:receive_new_version) }
+  end
+
+  def self.feedback_listeners
+    @feedback_listeners ||= subclasses.select{|k| k.method_defined?(:receive_feedback) }
   end
 
 	attr_accessor :settings, :payload

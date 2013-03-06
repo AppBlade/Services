@@ -1,37 +1,47 @@
+require 'tinder'
+
 class Service::Campfire < Service
 
 	Title = 'Campfire'
-	Description = 'Use this service to broadcast updates, crash reports, unprovisioned devices, and feedback to 37Signals Campfire.'
+	Description = 'Use this service to broadcast updates, crash reports, and feedback to 37Signals Campfire.'
 
-	string :subdomain, :room_name, :api_token, :required => true
-	string :sound, :default => 'rimshot', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
+	string :subdomain, :room_name, :required => true
+	string :sound, :default => '', :collection => %w(secret trombone crickets rimshot vuvuzela tmyk live drama yeah greatjob pushit nyan tada ohmy bueller ohyeah)
 
-	def settings_correct?
-		begin
-			!!room
-		rescue
-			false
-		end
-	end
+  oauth :thirty_seven_signals
+
+  def settings_test
+    return "Sub-domain is required" if settings(:subdomain).blank?
+    return "Room name is required"  if settings(:room_name).blank?
+    !!room && 'Success.' || 'Invalid room name.'
+  rescue Tinder::AuthenticationFailed => e
+    "Invalid sub-domain or API token."
+  rescue => e
+    'Invalid settings or Campfire is unreachable.'
+  end
 
 	def receive_crash_report
-		if settings_correct?
-			room.speak "#{subject} #{simple :message}: #{url}"
-			room.play settings(:sound) unless settings(:sound).blank?
-			"Success."
-		else
-			"Settings are incorrect."
-		end
+		room.speak "#{subject} #{simple :message}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
 	end
 
 	def receive_new_version
 		room.speak "#{subject} was just uploaded to AppBlade by #{simple :user}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
 	end
+
+  def receive_feedback
+    room.speak "#{subject} just had in-app feedback submitted to AppBlade by #{simple :user}: #{url}"
+    room.play settings(:sound) unless settings(:sound).blank?
+		"Success."
+  end
 
 private
 
 	def connection
-		@connection ||= Tinder::Campfire.new settings(:subdomain), :token => settings(:api_token)
+		@connection ||= Tinder::Campfire.new settings(:subdomain), :token => settings(:access_token), :oauth => true
 	end
 
 	def subject
