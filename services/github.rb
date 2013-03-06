@@ -27,7 +27,7 @@ class Service::Github < Service
     connection.post("/repos/#{settings :project}/issues", {
       :title => simple(:message), 
       :body => "A crash has been reported on #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})",
-      :labels => labels + ['Crash report']
+      :labels => labels + ['Crash report', 'AppBlade']
     }).body
   end
 
@@ -35,7 +35,7 @@ class Service::Github < Service
     connection.post("/repos/#{settings :project}/issues", {
       :title => "#{title_format :notes}",
       :body => "#{simple :user} reported in-app feedback for #{simple :project} version #{simple :version}, [view it on AppBlade](#{url})\n\n#{body_format :notes} \n\n#{simple :device}\n#{simple :device_id}",
-      :labels => labels + ['Feedback']
+      :labels => labels + ['Feedback', 'AppBlade'] 
     }).body
   end
 
