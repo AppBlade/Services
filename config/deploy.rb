@@ -43,8 +43,7 @@ namespace :deploy do
 	
 	desc 'Restarting the service'
 	task :restart, :roles => [:web] do
-	  run "cd #{previous_release} && kill `cat services.pid`" if File.exists? "#{previous_release}/services.pid"
-    run "cd #{current_path} && bundle exec ruby services.rb >> services.log 2>&1 &"
+    run "cd #{current_path} && touch tmp/restart.txt"
 	end
 
 end
