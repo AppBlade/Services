@@ -16,12 +16,12 @@ set :use_sudo,     false
 
 set :branch, 'master'
 
-role :web, '184.106.81.128'
-role :app, '184.106.81.128'
-role :db,  '184.106.81.128', :primary => true
+role :web, '162.209.14.199'
+role :app, '162.209.14.199'
+role :db,  '162.209.14.199', :primary => true
 
 set :user,        'appblade'
-set :deploy_to,   "/home/#{user}/#{application}"
+set :deploy_to,   "/#{application}"
 set :domain_name, '0.0.0.0'
 
 before :deploy, 'deploy:check_revision'
