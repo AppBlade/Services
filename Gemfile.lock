@@ -14,7 +14,7 @@ GIT
       twitter-stream (~> 0.1)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     capistrano (2.13.5)
       highline

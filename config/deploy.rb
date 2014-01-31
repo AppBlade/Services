@@ -2,7 +2,7 @@ require 'rvm/capistrano'
 require 'bundler/capistrano'
 require 'capistrano_colors'
 
-set :rvm_ruby_string, 'ruby-1.9.3-p362'
+set :rvm_ruby_string, 'ruby-2.1.0-p0'
 set :rvm_type, :user
 
 ssh_options[:forward_agent] = true
@@ -16,9 +16,9 @@ set :use_sudo,     false
 
 set :branch, 'master'
 
-role :web, '162.209.14.199'
-role :app, '162.209.14.199'
-role :db,  '162.209.14.199', :primary => true
+role :web, '23.253.35.161'
+role :app, '23.253.35.161'
+role :db,  '23.253.35.161', :primary => true
 
 set :user,        'appblade'
 set :deploy_to,   "/#{application}"
