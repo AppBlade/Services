@@ -38,17 +38,43 @@ class Service::TestCase < Test::Unit::TestCase
 	def settings_payload
 		{
 			'Service::Github' => {
-				'api_token'        => 'xxxxxxxxxxxxxx',
-				'username'         => 'jamesdaniels',
-				'project'          => 'AppBlade/Services',
-				'tag_for_crash'    => 'Crash',
-				'tag_with_version' => true
+				'api_token'         => 'xxxxxxxxxxxxxx',
+				'username'          => 'jamesdaniels',
+				'project'           => 'AppBlade/Services',
+				'tag_for_crash'     => 'Crash',
+				'tag_with_version'  => '1',
+				'tag_with_platform' => '1'
 			},
 			'Service::Campfire' => {
 				'api_token' => 'aaaaaaaa',
 				'subdomain' => 'appblade',
 				'room_name' => 'AppBlade',
 				'sound'     => 'secret'
+			},
+			'Service::Hipchat' => {
+				'room'                   => 'appblade',
+				'token'                  => 'aaaaaa',
+				'crash_report_color'     => 'yellow',
+				'feedback_color'         => 'green',
+				'new_version_color'      => 'purple',
+				'post_on_crash_report'   => '1',
+				'post_on_feedback'       => '1',
+				'post_on_new_version'    => '1',
+				'notify_on_crash_report' => '1',
+				'notify_on_feedback'     => '1',
+				'notify_on_new_version'  => '0'
+			},
+			'Service::Bugzilla' => {
+				'product'                 => 'appblade',
+				'component'               => 'test',
+				'feedback_priority'       => 'P4',
+				'crash_report_priority'   => 'P4',
+				'feedback_severity'       => 'normal',
+				'crash_report_severity'   => 'normal',
+				'create_bug_for_crashes'  => '1',
+				'create_bug_for_feedback' => '1',
+				'user'                    => 'james',
+				'password'                => 'password'
 			}
 		}
 	end
