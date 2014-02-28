@@ -30,7 +30,6 @@ post '/feedback' do
   process :feedback
 end
 
-
 def process(service)
   request.body.rewind
   response = MultiJson.decode(request.body.read)
@@ -43,4 +42,25 @@ def process(service)
     end
     collection
   end)
+end
+
+# Array#to_sentence from Ruby on Rails
+# basicly what's in activesupport/lib/active_support/core_ext/array/conversions.rb:9
+class Array
+  def to_sentence
+    words_connector     = ', '
+    two_words_connector = ' and '
+    last_word_connector = ', and '
+
+    case length
+      when 0
+        ""
+      when 1
+        self[0].to_s
+      when 2
+        "#{self[0]}#{two_words_connector}#{self[1]}"
+      else
+        "#{self[0...-1].join(words_connector)}#{last_word_connector}#{self[-1]}"
+    end
+  end
 end
