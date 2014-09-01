@@ -16,13 +16,13 @@ set :use_sudo,     false
 
 set :branch, 'master'
 
-role :web, '23.253.35.161'
-role :app, '23.253.35.161'
-role :db,  '23.253.35.161', :primary => true
+role :web, '104.130.19.72'
+role :app, '104.130.19.72'
+role :db,  '104.130.19.72', :primary => true
 
 set :user,        'appblade'
 set :deploy_to,   "/#{application}"
-set :domain_name, '0.0.0.0'
+set :domain_name, 'localhost'
 
 before :deploy, 'deploy:check_revision'
 
